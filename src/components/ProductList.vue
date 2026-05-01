@@ -6,7 +6,7 @@
     </div>
     
     <!-- Error State -->
-    <div v-else-if="error" class="bg-red-50 text-red-600 p-8 rounded-xl text-center shadow-sm">
+    <div v-else-if="error" class="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-8 rounded-xl text-center shadow-sm">
       <p class="font-medium text-lg">{{ error }}</p>
       <button @click="$emit('retry')" class="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition">
         Try Again
@@ -14,8 +14,8 @@
     </div>
     
     <!-- Empty State -->
-    <div v-else-if="products.length === 0" class="text-center py-24 bg-white rounded-xl shadow-sm border border-gray-100">
-      <p class="text-gray-500 text-lg font-medium">No products found matching your search criteria.</p>
+    <div v-else-if="products.length === 0" class="text-center py-24 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+      <p class="text-gray-500 dark:text-gray-400 text-lg font-medium">No products found matching your search criteria.</p>
     </div>
     
     <!-- Product Grid -->

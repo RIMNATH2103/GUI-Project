@@ -11,31 +11,31 @@
       </button>
     </div>
     
-    <div v-else-if="product" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div v-else-if="product" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-colors duration-300">
       <!-- Breadcrumb -->
-      <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex items-center text-sm">
+      <div class="bg-gray-50 dark:bg-gray-800/50 px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center text-sm">
         <router-link to="/" class="text-indigo-600 font-medium hover:underline">Home</router-link>
         <span class="mx-3 text-gray-400">/</span>
         <span class="text-gray-500 capitalize font-medium">{{ product.category }}</span>
         <span class="mx-3 text-gray-400">/</span>
-        <span class="text-gray-900 font-medium truncate">{{ product.title }}</span>
+        <span class="text-gray-900 dark:text-white font-medium truncate">{{ product.title }}</span>
       </div>
 
       <div class="flex flex-col md:flex-row">
         <!-- Image Gallery -->
-        <div class="md:w-1/2 p-8 bg-white flex flex-col items-center border-r border-gray-100">
+        <div class="md:w-1/2 p-8 bg-white dark:bg-gray-800 flex flex-col items-center border-r border-gray-100 dark:border-gray-700">
           <img 
             :src="activeImage || product.thumbnail" 
             :alt="product.title" 
-            class="w-full max-w-md h-auto object-contain rounded-xl p-4 mb-6 aspect-square bg-gray-50"
+            class="w-full max-w-md h-auto object-contain rounded-xl p-4 mb-6 aspect-square bg-gray-50 dark:bg-gray-700"
           />
           <div class="flex gap-4 overflow-x-auto w-full pb-2 justify-center">
             <button 
               v-for="(img, idx) in product.images" 
               :key="idx"
               @click="activeImage = img"
-              class="w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden border-2 transition-all p-1 bg-gray-50"
-              :class="activeImage === img ? 'border-indigo-600' : 'border-transparent hover:border-gray-300'"
+              class="w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden border-2 transition-all p-1 bg-gray-50 dark:bg-gray-700"
+              :class="activeImage === img ? 'border-indigo-600 dark:border-indigo-400' : 'border-transparent hover:border-gray-300 dark:hover:border-gray-500'"
             >
               <img :src="img" class="w-full h-full object-contain rounded-lg" />
             </button>
@@ -43,30 +43,30 @@
         </div>
         
         <!-- Product Information -->
-        <div class="md:w-1/2 p-8 lg:p-12 bg-gray-50/30">
+        <div class="md:w-1/2 p-8 lg:p-12 bg-gray-50/30 dark:bg-gray-800/30">
           <div class="mb-6">
             <span class="text-indigo-600 font-bold tracking-wider uppercase text-sm mb-2 block">{{ product.brand || product.category }}</span>
-            <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-3">{{ product.title }}</h1>
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-white mb-3">{{ product.title }}</h1>
           </div>
           
           <div class="flex items-center mb-6">
-            <div class="flex items-center bg-white border border-gray-200 px-3 py-1.5 rounded-lg shadow-sm">
+            <div class="flex items-center bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 px-3 py-1.5 rounded-lg shadow-sm">
               <span class="text-yellow-400 text-lg mr-1">★</span>
-              <span class="font-bold text-gray-900">{{ product.rating }}</span>
+              <span class="font-bold text-gray-900 dark:text-white">{{ product.rating }}</span>
             </div>
-            <span class="text-green-600 font-medium text-sm ml-4 bg-green-50 px-3 py-1.5 rounded-lg">
+            <span class="text-green-600 dark:text-green-400 font-medium text-sm ml-4 bg-green-50 dark:bg-green-900/30 px-3 py-1.5 rounded-lg">
               {{ product.stock }} in stock
             </span>
           </div>
           
-          <p class="text-gray-600 text-lg leading-relaxed mb-8">{{ product.description }}</p>
+          <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">{{ product.description }}</p>
           
-          <div class="flex items-end mb-10 pb-10 border-b border-gray-200">
-            <span class="text-4xl font-extrabold text-gray-900">${{ product.price }}</span>
+          <div class="flex items-end mb-10 pb-10 border-b border-gray-200 dark:border-gray-700">
+            <span class="text-4xl font-extrabold text-gray-900 dark:text-white">${{ product.price }}</span>
             <span v-if="product.discountPercentage > 0" class="ml-4 text-xl text-gray-400 line-through mb-1">
               ${{ Math.round(product.price / (1 - product.discountPercentage / 100)) }}
             </span>
-            <span v-if="product.discountPercentage > 0" class="ml-3 text-sm font-bold text-red-600 mb-2 bg-red-50 px-2 py-1 rounded-md">
+            <span v-if="product.discountPercentage > 0" class="ml-3 text-sm font-bold text-red-600 dark:text-red-400 mb-2 bg-red-50 dark:bg-red-900/30 px-2 py-1 rounded-md">
               {{ product.discountPercentage }}% OFF
             </span>
           </div>

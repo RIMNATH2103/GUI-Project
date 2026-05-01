@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="mb-8">
-      <h1 class="text-3xl font-extrabold text-gray-900">Discover Products</h1>
-      <p class="text-gray-500 mt-2">Find exactly what you're looking for from our collection.</p>
+      <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">Discover Products</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-2">Find exactly what you're looking for from our collection.</p>
     </div>
     
     <FilterBar 
