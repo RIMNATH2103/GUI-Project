@@ -8,6 +8,12 @@
         <router-link to="/" class="text-gray-600 dark:text-gray-300 font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
           Home
         </router-link>
+        
+        <!-- User Greeting -->
+        <div v-if="isLoggedIn && user" class="text-gray-600 dark:text-gray-300 font-medium hidden md:block">
+          Hi, {{ user.firstName }}
+        </div>
+
         <button 
           @click="toggleDarkMode" 
           class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors"
@@ -22,16 +28,35 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         </button>
+        
+        <!-- Auth Buttons -->
+        <button v-if="isLoggedIn" @click="handleLogout" class="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 font-medium transition-colors">
+          Logout
+        </button>
+        <button v-else @click="isLoginModalOpen = true" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium transition-colors">
+          Login
+        </button>
+
         <button class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm">
           Cart (0)
         </button>
       </div>
     </div>
   </nav>
+
+  <!-- Login Modal -->
+  <LoginModal :is-open="isLoginModalOpen" @close="isLoginModalOpen = false" />
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuth } from '../composables/useAuth';
+import LoginModal from './LoginModal.vue';
+
+const router = useRouter();
+const { user, isLoggedIn, logout } = useAuth();
+const isLoginModalOpen = ref(false);
 
 const isDark = ref(false);
 
@@ -44,6 +69,12 @@ const toggleDarkMode = () => {
     document.documentElement.classList.remove('dark');
     localStorage.setItem('theme', 'light');
   }
+};
+
+const handleLogout = () => {
+  logout();
+  // Redirect to home if on a protected route (or just to be safe)
+  router.push('/');
 };
 
 onMounted(() => {
