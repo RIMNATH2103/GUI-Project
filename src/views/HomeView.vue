@@ -5,6 +5,11 @@
       <p class="text-gray-500 dark:text-gray-400 mt-2">Find exactly what you're looking for from our collection.</p>
     </div>
     
+    <ImageSearch 
+      @search="handleImageSearch"
+      @clear="handleImageClear"
+    />
+    
     <FilterBar 
       :categories="categories"
       v-model:searchQuery="searchQuery"
@@ -26,6 +31,7 @@ import type { Product, Category } from '../types';
 import { fetchProducts, fetchCategories, fetchProductsByCategory, searchProducts } from '../services/api';
 import FilterBar from '../components/FilterBar.vue';
 import ProductList from '../components/ProductList.vue';
+import ImageSearch from '../components/ImageSearch.vue';
 
 const products = ref<Product[]>([]);
 const categories = ref<Category[]>([]);
@@ -43,6 +49,15 @@ const loadInitialData = async () => {
     console.error('Failed to load categories', err);
   }
   await loadProducts();
+};
+
+const handleImageSearch = (keyword: string) => {
+  searchQuery.value = keyword;
+  selectedCategory.value = '';
+};
+
+const handleImageClear = () => {
+  searchQuery.value = '';
 };
 
 const loadProducts = async () => {
