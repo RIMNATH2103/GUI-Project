@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="mb-8">
-      <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">Discover Products</h1>
-      <p class="text-gray-500 dark:text-gray-400 mt-2">Find exactly what you're looking for from our collection.</p>
+    <div class="mb-8 transition-all duration-300">
+      <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">{{ t('discover_products') }}</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-2">{{ t('find_exactly') }}</p>
     </div>
     
     <ImageSearch 
@@ -32,6 +32,9 @@ import { fetchProducts, fetchCategories, fetchProductsByCategory, searchProducts
 import FilterBar from '../components/FilterBar.vue';
 import ProductList from '../components/ProductList.vue';
 import ImageSearch from '../components/ImageSearch.vue';
+import { useLanguage } from '../composables/useLanguage';
+
+const { t } = useLanguage();
 
 const products = ref<Product[]>([]);
 const categories = ref<Category[]>([]);

@@ -29,7 +29,7 @@
           :to="`/product/${product.id}`" 
           class="bg-gray-900 dark:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-600 dark:hover:bg-indigo-500 transition-colors"
         >
-          Details
+          {{ t('details') }}
         </router-link>
       </div>
     </div>
@@ -38,6 +38,9 @@
 
 <script setup lang="ts">
 import type { Product } from '../types';
+import { useLanguage } from '../composables/useLanguage';
+
+const { t } = useLanguage();
 
 defineProps<{ product: Product }>();
 </script>

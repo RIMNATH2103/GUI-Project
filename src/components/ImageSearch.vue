@@ -10,8 +10,8 @@
         </svg>
       </div>
       <div>
-        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Visual Search</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Upload an image to find similar products</p>
+        <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ t('visual_search') }}</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('upload_image_find') }}</p>
       </div>
     </div>
 
@@ -32,7 +32,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
           <span class="font-medium text-gray-600 dark:text-gray-400">
-            Drop an image here, or <span class="text-indigo-600 dark:text-indigo-400 underline">browse</span>
+            {{ t('drop_image') }}<span class="text-indigo-600 dark:text-indigo-400 underline">{{ t('browse') }}</span>
           </span>
         </span>
         <input type="file" accept="image/*" class="hidden" @change="handleFileUpload">
@@ -54,10 +54,10 @@
         <!-- Info & Actions -->
         <div class="flex-1 text-center md:text-left">
           <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">
-            {{ isProcessing ? 'Analyzing image...' : 'Image ready' }}
+            {{ isProcessing ? t('analyzing_image') : t('image_ready') }}
           </h3>
           <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            {{ isProcessing ? 'Extracting keywords from your photo to find the best matches.' : 'We will use this image to find similar products for you.' }}
+            {{ isProcessing ? t('extracting_keywords') : t('use_image_find') }}
           </p>
           
           <div class="flex flex-wrap justify-center md:justify-start gap-3">
@@ -66,13 +66,13 @@
               :disabled="isProcessing"
               class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 transition-colors"
             >
-              Clear Image
+              {{ t('clear_image') }}
             </button>
             <label 
               class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 cursor-pointer transition-colors"
               :class="{ 'opacity-50 cursor-not-allowed': isProcessing }"
             >
-              Upload Another
+              {{ t('upload_another') }}
               <input type="file" accept="image/*" class="hidden" @change="handleFileUpload" :disabled="isProcessing">
             </label>
           </div>
@@ -84,6 +84,9 @@
 
 <script setup lang="ts">
 import { useImageSearch } from '../composables/useImageSearch';
+import { useLanguage } from '../composables/useLanguage';
+
+const { t } = useLanguage();
 
 const emit = defineEmits<{
   (e: 'search', keyword: string): void;

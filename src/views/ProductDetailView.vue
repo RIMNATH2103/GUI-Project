@@ -7,14 +7,14 @@
     <div v-else-if="error" class="bg-red-50 text-red-600 p-8 rounded-xl text-center shadow-sm max-w-2xl mx-auto mt-10">
       <p class="font-medium text-lg">{{ error }}</p>
       <button @click="$router.push('/')" class="mt-6 px-6 py-2 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition">
-        Back to Home
+        {{ t('back_to_home') }}
       </button>
     </div>
     
     <div v-else-if="product" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-colors duration-300">
       <!-- Breadcrumb -->
       <div class="bg-gray-50 dark:bg-gray-800/50 px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center text-sm">
-        <router-link to="/" class="text-indigo-600 font-medium hover:underline">Home</router-link>
+        <router-link to="/" class="text-indigo-600 font-medium hover:underline">{{ t('home') }}</router-link>
         <span class="mx-3 text-gray-400">/</span>
         <span class="text-gray-500 capitalize font-medium">{{ product.category }}</span>
         <span class="mx-3 text-gray-400">/</span>
@@ -55,7 +55,7 @@
               <span class="font-bold text-gray-900 dark:text-white">{{ product.rating }}</span>
             </div>
             <span class="text-green-600 dark:text-green-400 font-medium text-sm ml-4 bg-green-50 dark:bg-green-900/30 px-3 py-1.5 rounded-lg">
-              {{ product.stock }} in stock
+              {{ product.stock }} {{ t('in_stock') }}
             </span>
           </div>
           
@@ -67,13 +67,13 @@
               ${{ Math.round(product.price / (1 - product.discountPercentage / 100)) }}
             </span>
             <span v-if="product.discountPercentage > 0" class="ml-3 text-sm font-bold text-red-600 dark:text-red-400 mb-2 bg-red-50 dark:bg-red-900/30 px-2 py-1 rounded-md">
-              {{ product.discountPercentage }}% OFF
+              {{ product.discountPercentage }}% {{ t('off') }}
             </span>
           </div>
           
           <div class="flex gap-4">
             <button class="flex-1 bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 hover:shadow-lg transition-all active:scale-95 flex justify-center items-center gap-2">
-              Add to Cart
+              {{ t('add_to_cart') }}
             </button>
           </div>
         </div>
@@ -87,6 +87,9 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import type { Product } from '../types';
 import { fetchProductById } from '../services/api';
+import { useLanguage } from '../composables/useLanguage';
+
+const { t } = useLanguage();
 
 const route = useRoute();
 const product = ref<Product | null>(null);
